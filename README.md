@@ -1,1 +1,1 @@
-# innoWeekDiversity
+# InnoWeekDiversity
