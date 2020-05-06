@@ -10,9 +10,9 @@
 <div class="main_container">
  <h1>What troubles you?</h1>
 
- <form>
-    <input type="text" id="input-title" placeholder="Title">
-    <textarea name="" type="text" id="input-message" placeholder="Text"></textarea>
+ <form action="/addPost" method="POST">
+    <input type="text" id="input-title" name="input-title" placeholder="Title">
+    <textarea type="text" id="input-message" name="input-message" placeholder="Text"></textarea>
     <input type="submit" value="Submit" id="input-submit">
  </form>
 

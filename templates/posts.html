@@ -9,47 +9,42 @@
 {% block body %}
 
 <div class="main_container"> 
+    
     <div class="list">
+        {% for post in posts %}
         <div class="card">
-            <h3>Title 1</h3>
+            <h3>{{post.Titel}}</h3>
+            <a href="/deletePost/{{post.id}}"> 
+                DELETE
+            </a>
             <p class="main-content">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                {{post.Text}}
             </p>
-            <p class="tags">Tags: Important</p>     
+            <a href="/incrementMeToo/{{post.id}}">
+               <p class="tags">MeeToo: {{post.MeTooCount}}</p> 
+            </a>    
+            
+        <div class="listOfTags">
+            {% for relation in relations %}
+                {% if (relation.PostId == post.id) %}
+                    {% for tag in tags %}
+                        {% if (relation.TagId == tag.id) %}                    
+                            <div>{{tag.Name}}</div>
+                            <a href="/deleteRelation/{{relation.id}}">Remove Tag</a>
+                        {% endif %}
+                    {% endfor %}
+               {% endif %}
+            {% endfor %}
+            <form action="/addRelation/{{post.id}}" method="POST">
+                <input type="text" name="tagName" id="tagName">
+                <input type="submit" value="Add Relation">
+            </form>
+        </div>  
+
         </div>
-        <div class="card">
-            <h3>Title 2</h3>
-            <p class="main-content">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                no sea takimata sanctus est Lorem ipsum dolor sit amet.
-            </p>
-            <p class="tags">Tags: Important</p>     
-        </div>
-        <div class="card">
-            <h3>Title 3</h3>
-            <p class="main-content">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                no sea takimata sanctus est Lorem ipsum dolor sit amet.
-            </p>
-            <p class="tags">Tags: Important</p>     
-        </div>
-      </div>
+        {% endfor %}
+    </div>
+    
 </div>
 
 {% endblock %}
