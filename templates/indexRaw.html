@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Task Master</h1>
+    <table>
+        <tr>
+            <th>Post ID</th>
+            <th>Titel</th>
+            <th>Text</th>
+            <th>Timestamp</th>
+            <th>MeTooCount</th>
+            <th>Tags</th>
+            <th>Actions</th>
+        </tr>
+        {% for post in posts %}
+            <tr>
+                <td>{{post.id}}</td>
+                <td>{{post.Titel}}</td>
+                <td>{{post.Text}}</td>
+                <td>{{post.Timestamp.date()}}</td>
+                <td>{{post.MeTooCount}}</td>
+                <td>
+                    <ol>
+                        {% for relation in relations if (relation.PostId == post.id) %}
+                        {% for tag in tags if (relation.tagId == tag.id) %}
+                        <li> tag.Name </li>
+                        {% endfor %}                        
+                        {% endfor %}
+                    </ol>
+                </td>
+                <td>
+                    <a href="/deletePost/{{post.id}}">Delete</a>
+                    <br>
+                    <a href="/incrementMeToo/{{post.id}}">Me Too</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <form action="/" method="POST">
+        <input type="text" name="titel" id="titel">
+        <input type="text" name="inhalt" id="inhalt">
+        <input type="submit" value="Add Post">
+    </form>
+    <form action="/addRelation" method="POST">
+        <input type="text" name="postId" id="postId">
+        <input type="text" name="tagId" id="tagId">
+        <input type="submit" value="Add Relation">
+    </form>
+
+    <table>
+        <tr>
+            <th>Tag ID</th>
+            <th>Name</th>
+            <th>Parent Tag</th>
+            <th>Actions</th>
+        </tr>
+        {% for tag in tags %}
+            <tr>
+                <td>{{tag.id}}</td>
+                <td>{{tag.Name}}</td>
+                <td>{{tag.ParentTag}}</td>
+                <td>
+                    <a href="/deleteTag/{{tag.id}}">Delete</a>
+                    <br>
+                    <a href="">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <form action="/addTag" method="POST">
+        <input type="text" name="tagName" id="tagName">
+        <input type="text" name="parentId" id="parentId">
+        <input type="submit" value="Add Tag">
+    </form>
+
+    <table>
+        <tr>
+            <th>relation id</th>
+            <th>Post Id</th>
+            <th>Tag ID</th>
+            <th>WasAutomaticallyGenerated</th>
+            <th>Actions</th>
+        </tr>
+        {% for relation in relations %}
+            <tr>
+                <td>{{relation.id}}</td>
+                <td>{{relation.PostId}}</td>
+                <td>{{relation.TagId}}</td>
+                <td>{{relation.WasAutomaticallyGenerated}}</td>
+                <td>
+                    <a href="/deleteRelation/{{relation.id}}">Delete</a>
+                    <br>
+                    <a href="">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
