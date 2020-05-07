@@ -20,27 +20,26 @@
             <p class="main-content">
                 {{post.Text}}
             </p>
-            <a href="/incrementMeToo/{{post.id}}">
-               <p class="tags">MeeToo: {{post.MeTooCount}}</p> 
-            </a>    
-            
-        <div class="listOfTags">
-            {% for relation in relations %}
-                {% if (relation.PostId == post.id) %}
-                    {% for tag in tags %}
-                        {% if (relation.TagId == tag.id) %}                    
-                            <div>{{tag.Name}}</div>
-                            <a href="/deleteRelation/{{relation.id}}">Remove Tag</a>
-                        {% endif %}
+            <div class="card-footer">
+                <div class="listOfTags">
+                    {% for relation in relations %}
+                        {% if (relation.PostId == post.id) %}
+                            {% for tag in tags %}
+                                {% if (relation.TagId == tag.id) %}                    
+                                    <div class="tag">{{tag.Name}}</div>
+                                {% endif %}
+                            {% endfor %}
+                    {% endif %}
                     {% endfor %}
-               {% endif %}
-            {% endfor %}
-            <form action="/addRelation/{{post.id}}" method="POST">
-                <input type="text" name="tagName" id="tagName">
-                <input type="submit" value="Add Relation">
-            </form>
-        </div>  
+                </div>  
 
+                <div class="me-too-container">
+                    <a href="/incrementMeToo/{{post.id}}">
+                        <img class="me-too-symbol" src="static/raise.png" onclick="this.src='static/raised.png'"/>
+                    </a> 
+                        <div class="me-toos"><p>{{post.MeTooCount}}</p></div> 
+                </div>               
+            </div>
         </div>
         {% endfor %}
     </div>

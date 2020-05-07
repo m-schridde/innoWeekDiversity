@@ -18,6 +18,7 @@ h3 {
 
 .card {
     margin-top: 30px;
+    padding-bottom: 30px;
     border-style: solid;
     max-width: 600px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -40,4 +41,61 @@ h3 {
 
   .tags {
       text-align: right;
+  }
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    min-width: 80%;
+    align-items: flex-end;
+}
+
+.listOfTags {
+    max-width: 250px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.listOfTags * {
+    display: inline-block;
+    border-width: 1px;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #2C3E50;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 4px;
+}
+
+.me-too-container {
+    display: inline-block;
+    min-width: fit-content;
+    align-items: flex-end;
+}
+
+.me-too-container * {
+    display: inline;
+    min-width: 10%;
+    text-decoration: none;
+}
+
+  .me-too-symbol {
+      height: 32px;
+      width: 32px;
+  }
+
+  .me-too-symbol:hover {
+      cursor: pointer;
+  }
+  
+  .me-toos {
+    height: 32px;
+    width: 32px;
+    font-size: 18px;
+    margin-left: 5px;
+  }
+
+  .tag:hover {
+    cursor: pointer;
   }
