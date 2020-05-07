@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from mockKi import mockKi
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///diversity.db'
@@ -48,15 +49,32 @@ def addPost():
         post_titel = request.form['input-title']
         post_inhalt = request.form['input-message']
         new_post = Posts(Titel = post_titel, Text = post_inhalt)
-        
+        proposed_tags = mockKi(post_inhalt)
         try:
             db.session.add(new_post)
             db.session.commit()
-            all_tags = Tags.query.all()
-            all_relations = PostTagRelation.query.all()
-            return render_template('confirm.html', post = new_post, tags=all_tags, relations=all_relations)
         except:
             return 'There was an issue adding your Post'
+        post_id = new_post.id
+        for tag_name in proposed_tags:
+            tags_by_name = Tags.query.filter_by(Name = tag_name)
+            if tags_by_name.count() == 0:
+                addTag(tag_name)
+
+            this_tag = Tags.query.filter_by(Name = tag_name).first()
+            tag_id = this_tag.id
+
+
+            new_relation = PostTagRelation(PostId = post_id, TagId=tag_id)
+            try:
+                db.session.add(new_relation)
+                db.session.commit()
+            except:
+                return "huge fuckup"
+
+        all_tags = Tags.query.all()
+        all_relations = PostTagRelation.query.all()
+        return render_template('confirm.html', post = new_post, tags=all_tags, relations=all_relations)        
     else:
         return render_template('index.html')
 
@@ -87,7 +105,14 @@ def incrementMeToo(id):
 @app.route('/deletePost/<int:id>')
 def deletePost(id):
     post_to_delete = Posts.query.get_or_404(id)
-
+    relation_to_delete =  PostTagRelation.query.filter_by(PostId = post_to_delete.id).first()
+    while isinstance(relation_to_delete, PostTagRelation):
+        try:
+            db.session.delete(relation_to_delete)
+            db.session.commit()
+        except:
+            return 'There was a Problem deleting that post'
+        relation_to_delete =  PostTagRelation.query.filter_by(PostId = post_to_delete.id).first()
     try:
         db.session.delete(post_to_delete)
         db.session.commit()
