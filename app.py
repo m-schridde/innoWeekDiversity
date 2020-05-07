@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from mockKi import mockKi
+from Model_for_Backend.predict_category import predict_category
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///diversity.db'
@@ -49,7 +50,7 @@ def addPost():
         post_titel = request.form['input-title']
         post_inhalt = request.form['input-message']
         new_post = Posts(Titel = post_titel, Text = post_inhalt)
-        proposed_tags = mockKi(post_inhalt)
+        proposed_tags = predict_category(post_inhalt)
         try:
             db.session.add(new_post)
             db.session.commit()
