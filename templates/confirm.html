@@ -1,0 +1,47 @@
+{% extends 'base_no_nav.html' %}
+{% set active_page = "posts" %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/confirm.css') }}"
+{% endblock %}
+
+{% block body %}
+
+<div class="main_container"> 
+    
+    <div class="card">
+        <h3>{{post.Titel}}</h3>
+        <p class="main-content">
+            {{post.Text}}
+        </p>
+        
+        <div class="listOfTags">
+        {% for relation in relations %}
+        {% if (relation.PostId == post.id) %}
+        {% for tag in tags %}
+        {% if (relation.TagId == tag.id) %}                    
+        <div>
+            {{tag.Name}}
+        </div>
+        <a href="/deleteRelation/{{relation.id}}">Remove Tag</a>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+        <form action="/addRelation/{{post.id}}" method="POST">
+            <input type="text" name="tagName" id="tagName">
+            <input type="submit" value="Add Relation">
+        </form>
+    </div>
+    <form action="/deletePost/{{post.id}}">
+        <input type="submit" value="Delete Post" id="discard"/>
+    </form>
+    <form action="/">
+        <input type="submit" value="Post Now" id="post-now"/>
+    </form>
+</div>
+    
+</div>
+
+{% endblock %}

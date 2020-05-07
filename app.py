@@ -52,11 +52,19 @@ def addPost():
         try:
             db.session.add(new_post)
             db.session.commit()
-            return redirect('/')
+            all_tags = Tags.query.all()
+            all_relations = PostTagRelation.query.all()
+            return render_template('confirm.html', post = new_post, tags=all_tags, relations=all_relations)
         except:
             return 'There was an issue adding your Post'
     else:
         return render_template('index.html')
+
+# @app.route('/confirmPost/<int:id>')
+# def confirmPost(id):
+#     post_to_be_confirmed = Posts.query.get_or_404(id)
+    
+
 
 @app.route('/posts.html')
 def posts():
@@ -83,7 +91,7 @@ def deletePost(id):
     try:
         db.session.delete(post_to_delete)
         db.session.commit()
-        return redirect('/posts.html')
+        return redirect('/')
     except:
         return 'There was a Problem deleting that post'
 
@@ -105,7 +113,10 @@ def addRelation(id):
         try:
             db.session.add(new_relation)
             db.session.commit()
-            return redirect('/posts.html')
+            current_post = Posts.query.get_or_404(id)
+            all_tags = Tags.query.all()
+            all_relations = PostTagRelation.query.all()
+            return render_template('confirm.html', post = current_post, tags=all_tags, relations=all_relations)
         except:
                 return 'There was an issue adding your Relation'
     else:
@@ -125,11 +136,15 @@ def addTag(name):
 @app.route('/deleteRelation/<int:id>')
 def deleteRelation(id):
     relation_to_delete = PostTagRelation.query.get_or_404(id)
+    post_id = relation_to_delete.PostId
+    current_post = Posts.query.get_or_404(post_id)
 
     try:
         db.session.delete(relation_to_delete)
         db.session.commit()
-        return redirect('/posts.html')
+        all_tags = Tags.query.all()
+        all_relations = PostTagRelation.query.all()
+        return render_template('confirm.html', post = current_post, tags=all_tags, relations=all_relations)
     except:
         return 'There was a Problem deleting that relation'
 
