@@ -19,8 +19,8 @@
     <div class="topnav">
         <a {% if "index" == active_page %} class="active" {% endif %} href="index.html">Home</a>
         <a {% if "posts" == active_page %} class="active" {% endif %} href="posts.html">Posts</a>
-        <a href="statistics.html">Statistics</a>
-        <a href="#about">About</a>
+        <a {% if "statistics" == active_page %} class="active" {% endif %} href="statistics.html">Statistics</a>
+        <a {% if "about" == active_page %} class="active" {% endif %} href="about.html">About</a>
     </div> 
 
     {% block body %}
