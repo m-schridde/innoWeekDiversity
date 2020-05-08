@@ -17,6 +17,7 @@ form {
 input {
    border-radius: 35px;
 }
+
 input:focus, textarea:focus {
    box-shadow: 0 0 1pt 1pt #3498db;
    border:0;
