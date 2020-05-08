@@ -2,3 +2,4 @@
 /env/
 diversity.db
 __pycache__
+.vscode
