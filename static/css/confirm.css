@@ -111,8 +111,21 @@ a {
     padding: 4px;
     padding-left: 8px;
     padding-right: 8px;
+    margin-right: 8px;
 }
 
+.tag_input_box {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    border-width: 1px;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #2C3E50;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
 .tag_plus {
     height: 15px;
     width: 15px;
