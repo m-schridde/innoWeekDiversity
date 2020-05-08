@@ -21,17 +21,19 @@
         {% if (relation.PostId == post.id) %}
         {% for tag in tags %}
         {% if (relation.TagId == tag.id) %}                    
-        <div>
+        <div class="tag">
             {{tag.Name}}
+            <a href="/deleteRelation/{{relation.id}}">
+                <img class="remove_tag_symbol" src="{{ url_for('static', filename='remove.png') }}">
+            </a>
         </div>
-        <a href="/deleteRelation/{{relation.id}}">Remove Tag</a>
         {% endif %}
         {% endfor %}
         {% endif %}
         {% endfor %}
-        <form action="/addRelation/{{post.id}}" method="POST">
-            <input type="text" name="tagName" id="tagName">
-            <input type="submit" value="Add Relation">
+        <form action="/addRelation/{{post.id}}" method="POST" class="tag_input" >
+            <input class="tag_input" placeholder="Add a Tag" type="text" name="tagName" id="tagName">
+            <input class="tag_plus" type="image" src="{{ url_for('static', filename='plus.png') }}">
         </form>
     </div>
     <form action="/deletePost/{{post.id}}">

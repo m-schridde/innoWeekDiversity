@@ -3,6 +3,11 @@ h3 {
     margin-bottom: 5px;
 }
 
+a {
+    height: 15px;
+    width: 15px;
+}
+
 .main_container {
     display: flex;
     align-items: center;
@@ -74,3 +79,50 @@ h3 {
  #post-now:hover {
     cursor: pointer;
  }
+
+ .listOfTags {
+    max-width: 250px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.tag {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    border-width: 1px;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #2C3E50;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 4px;
+}
+
+.tag_input {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    border-width: 1px;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #2C3E50;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.tag_plus {
+    height: 15px;
+    width: 15px;
+}
+
+.remove_tag_symbol {
+    height: 15px;
+    width: 15px;
+}
+
+.remove_tag_symbol:hover {
+    cursor: pointer;
+}
