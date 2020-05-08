@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from mockKi import mockKi
-from Model_for_Backend.predict_category import predict_category
+from Model_for_Backend_New.predict_category import predict_category
 from sqlalchemy import desc
 
 app = Flask(__name__)
