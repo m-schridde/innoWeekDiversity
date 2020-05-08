@@ -178,7 +178,20 @@ def deleteRelation(id):
 
 @app.route('/statistics.html')
 def statistics():
-    return render_template('statistics.html')
+
+            tag_id_relations = PostTagRelation.query.all()
+            tags = Tags.query.all()
+            tags_sum = PostTagRelation.query.count()
+            all_tags_count = {}
+            
+            for tag in tags:
+
+                tag_id = tag.id
+                tag_count = PostTagRelation.query.filter_by(TagId = tag_id).count()
+                all_tags_count[tag] = round(((tag_count / tags_sum) * 100), 1)
+
+            return render_template('statistics.html', tags = all_tags_count)
+
 
 @app.route('/about.html')
 def about():

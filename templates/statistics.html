@@ -8,8 +8,6 @@
 
 {% block body %}
   
-
-
     <style>
       .main-header {
         display: flex;
@@ -54,24 +52,18 @@
           background-color: #e3e4e6;
         }
       </style>
-      
+
       <div class="main-overview">
+        
+      {% for tag, tag_count in tags.items() %}
+        
         <div class="overviewcard">
-          <div class="overviewcard__left">Hungry</div>
-          <div class="overviewcard__info">40%</div>
+          <div class="overviewcard__left">{{tag.Name}}</div>
+          <div class="overviewcard__info">{{tag_count}}%</div>
         </div>
-        <div class="overviewcard">
-          <div class="overviewcard__left">Happy</div>
-          <div class="overviewcard__info">25%</div>
-        </div>
-        <div class="overviewcard">
-          <div class="overviewcard__left">Mad</div>
-          <div class="overviewcard__info">20%</div>
-        </div>
-        <div class="overviewcard">
-          <div class="overviewcard__left">Tired</div>
-          <div class="overviewcard__info">15%</div>
-        </div>
+      
+      {% endfor %}
+      
       </div>
 
       <style>
@@ -111,45 +103,18 @@
 
           <div class="center">
             <h3>What's been on your mind these past few weeks?</h3>
+
+            {% for tag, tag_count in tags.items() %}
+
             <div class="tagBox">
-              <p>Sad</p>
-              <p>30%</p>
+              <p>{{tag.Name}}</p>
+              <p>{{tag_count}}%</p>
               <div class="tag">
-                <div class="tag_level" style="width: 30%"> </div>
+              <div class="tag_level" style="width: {{tag_count}}%"> </div>
               </div>
             </div>
 
-            <div class="tagBox">
-              <p>Mad</p>
-              <p>70%</p>
-              <div class="tag">
-                <div class="tag_level" style="width: 70%"></div>
-              </div>
-            </div>
-
-            <div class="tagBox">
-              <p>Hungry</p>
-              <p>100%</p>
-              <div class="tag">
-                <div class="tag_level" style="width: 100%"></div>
-              </div>
-            </div>
-
-            <div class="tagBox">
-              <p>Happy</p>
-              <p>50%</p>
-              <div class="tag">
-                <div class="tag_level" style="width: 50%"></div>
-              </div>
-            </div>
-
-            <div class="tagBox">
-              <p>Tired</p>
-              <p>82%</p>
-              <div class="tag">
-                <div class="tag_level" style="width: 82%"></div>
-              </div>
-            </div>
+            {% endfor %}
 
             <style>
 
@@ -194,7 +159,6 @@
             </style>
 
           </div>
-
 
         </div>
         <div class="card">Hier könnte ihre Statistik stehen</div>
