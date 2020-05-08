@@ -197,5 +197,19 @@ def statistics():
 def about():
     return render_template('about.html')
 
+@app.route('/searchByTag', methods=['POST','GET'])
+def searchByTag():
+    tag_name = request.form['input-search-tag']
+    try: 
+        this_tag = Tags.query.filter_by(Name = tag_name).first()
+        tag_id = this_tag.id
+        post_tag_relations = PostTagRelation.query.filter_by(TagId = tag_id).all()
+        related_posts = []
+        for relation in post_tag_relations:
+            related_posts.append(Posts.query.filter_by(id = relation.PostId).first())
+        return render_template('posts.html', posts = related_posts)
+    except:
+        return posts()
+
 if __name__ == "__main__":
     app.run(debug=True)
