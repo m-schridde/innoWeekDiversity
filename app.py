@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from mockKi import mockKi
 from Model_for_Backend.predict_category import predict_category
+from sqlalchemy import desc
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///diversity.db'
@@ -41,8 +42,8 @@ def indexByDefault():
 
 @app.route('/index.html')
 def index():
-    all_posts = Posts.query.order_by(Posts.Timestamp).all()
-    return render_template('index.html', posts=all_posts)
+    #all_posts = Posts.query.order_by(desc(Posts.Timestamp)).all()
+    return render_template('index.html')
 
 @app.route('/addPost', methods=['POST','GET'])
 def addPost():
@@ -87,7 +88,7 @@ def addPost():
 
 @app.route('/posts.html')
 def posts():
-    all_posts = Posts.query.order_by(Posts.Timestamp).all()
+    all_posts = Posts.query.order_by(desc(Posts.Timestamp)).all()
     all_tags = Tags.query.all()
     all_relations = PostTagRelation.query.all()
     return render_template('posts.html', posts=all_posts, tags=all_tags, relations=all_relations)
@@ -99,7 +100,7 @@ def incrementMeToo(id):
     try:
         post_to_increment.MeTooCount = post_to_increment.MeTooCount + 1
         db.session.commit()
-        return redirect('/posts.html')
+        return redirect('/posts.html#post%s' % id)
     except:
         return 'There was a Problem with incrementing me too count'
 
